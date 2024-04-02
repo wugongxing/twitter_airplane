@@ -1,0 +1,8 @@
+/* 这里可以添加CSS样式，例如隐藏canvas的滚动条 */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999; /* 确保canvas在页面内容之上 */
+    pointer-events: none; /* 确保canvas上的事件不会阻止页面上其他元素的事件 */
+  }
