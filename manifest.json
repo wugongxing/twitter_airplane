@@ -11,6 +11,12 @@
         "css": ["plane.css"]
       }
     ],
+    "web_accessible_resources": [
+      {
+        "resources": ["fly1.png","plane.gif","plane2.png"],
+        "matches": ["*://*.twitter.com/*"]
+      }
+    ],
     "icons": {
         "16": "/images/get_started16.png",
         "32": "/images/get_started32.png",

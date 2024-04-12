@@ -11,58 +11,73 @@ window.addEventListener('load', function() {
   // 将canvas添加到body中
   document.body.appendChild(canvas);
 
+  const planeImage = new Image();
+  planeImage.src = chrome.runtime.getURL('plane2.png');
+
   // 初始化飞机对象
   let plane = {
     x: canvas.width / 2 - 25, // 飞机初始x位置
     y: canvas.height / 2 - 25, // 飞机初始y位置
-    size: 50, // 飞机的“大小”可以根据机翼长度调整
+    size: 100, // 飞机的“大小”可以根据机翼长度调整
     angle: 0, // 飞机的角度，用于旋转
     speed: 2, // 飞机的速度
     maxSpeed: 10, // 飞机的最大速度
     minSpeed: 1, // 飞机的最小速度
   };
 
+
   function drawPlane() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-    // 保存状态  
+    // 保存状态
     ctx.save();
-  
     ctx.translate(plane.x, plane.y);
     ctx.rotate(plane.angle * Math.PI / 180);
-  
-    // 机身
-    ctx.fillStyle = 'lightblue';
-    ctx.beginPath();
-    ctx.moveTo(0, -plane.size/2);
-    ctx.lineTo(-plane.size, 0);
-    ctx.lineTo(0, plane.size/2);
-    ctx.lineTo(plane.size, 0);
-    ctx.closePath();
-    ctx.fill();
-  
-    // 机翼
-    ctx.fillStyle = 'skyblue'; 
-    ctx.beginPath();
-    ctx.moveTo(-plane.size/2, -plane.size/4);
-    ctx.lineTo(-plane.size, -plane.size/8);
-    ctx.lineTo(-plane.size/2, plane.size/4);
-    ctx.closePath();
-    ctx.fill();
-  
-    ctx.beginPath();
-    ctx.moveTo(plane.size/2, -plane.size/4);
-    ctx.lineTo(plane.size, -plane.size/8); 
-    ctx.lineTo(plane.size/2, plane.size/4);
-    ctx.closePath(); 
-    ctx.fill();
-  
-    // 尾翼 
-    ctx.fillStyle = 'dodgerblue';
-    ctx.fillRect(0, 0, plane.size/4, plane.size/2);
-  
+    // 绘制飞机图像
+    ctx.drawImage(planeImage, -plane.size / 2, -plane.size / 2, plane.size, plane.size);
     ctx.restore();
   }
+
+  // function drawPlane() {
+  //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  //   // 保存状态  
+  //   ctx.save();
+  
+  //   ctx.translate(plane.x, plane.y);
+  //   ctx.rotate(plane.angle * Math.PI / 180);
+  
+  //   // 机身
+  //   ctx.fillStyle = 'lightblue';
+  //   ctx.beginPath();
+  //   ctx.moveTo(0, -plane.size/2);
+  //   ctx.lineTo(-plane.size, 0);
+  //   ctx.lineTo(0, plane.size/2);
+  //   ctx.lineTo(plane.size, 0);
+  //   ctx.closePath();
+  //   ctx.fill();
+  
+  //   // 机翼
+  //   ctx.fillStyle = 'skyblue'; 
+  //   ctx.beginPath();
+  //   ctx.moveTo(-plane.size/2, -plane.size/4);
+  //   ctx.lineTo(-plane.size, -plane.size/8);
+  //   ctx.lineTo(-plane.size/2, plane.size/4);
+  //   ctx.closePath();
+  //   ctx.fill();
+  
+  //   ctx.beginPath();
+  //   ctx.moveTo(plane.size/2, -plane.size/4);
+  //   ctx.lineTo(plane.size, -plane.size/8); 
+  //   ctx.lineTo(plane.size/2, plane.size/4);
+  //   ctx.closePath(); 
+  //   ctx.fill();
+  
+  //   // 尾翼 
+  //   ctx.fillStyle = 'dodgerblue';
+  //   ctx.fillRect(0, 0, plane.size/4, plane.size/2);
+  
+  //   ctx.restore();
+  // }
 
     // 更新飞机位置的函数
     function updatePlane() {
@@ -85,7 +100,7 @@ window.addEventListener('load', function() {
   animate();
 
     let scrollPosition = 0;
-    const scrollSpeed = 3 ; // 滚动速度，可以根据需要调整
+    const scrollSpeed = 4 ; // 滚动速度，可以根据需要调整
     let isScrolling = false; // 滚动状态标志
 
     function smoothScroll() {
@@ -100,6 +115,22 @@ window.addEventListener('load', function() {
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 's') {
+
+      // // 先滚到底
+      // let currentPage = 1;
+      // const maxPage = 5; // 设置要下滑的页数
+      // function scrollToNextPage() {
+      //   console.log('****scrollToNextPage*****');
+      //   window.scrollBy(0, window.innerHeight);
+      //   currentPage++;
+      //   if (currentPage <= maxPage) {
+      //     console.log('**1**scrollToNextPage*****');
+      //     requestAnimationFrame(scrollToNextPage);
+      //   }
+      // }
+      // scrollToNextPage();
+
+
         // 当按下'S'键时，开始滚动
         if (!scrollRequest && window.scrollY < document.body.scrollHeight - window.innerHeight) {
           isScrolling = true;
@@ -156,20 +187,20 @@ window.addEventListener('load', function() {
   function updatePlanePosition() {
     // 根据按键状态更新飞机位置
     if (isMovingLeft) {
-      plane.x -= 5;
-      isMovingLeft = false
+      plane.x -= 3;
+      // isMovingLeft = false
     }
     if (isMovingRight) {
-      plane.x += 5;
-      isMovingRight = false
+      plane.x += 3;
+      // isMovingRight = false
     }
     if (isMovingUp) {
-      plane.y -= 5;
-      isMovingUp = false
+      plane.y -= 3;
+      // isMovingUp = false
     }
     if (isMovingDown) {
-      plane.y += 5;
-      isMovingDown = false
+      plane.y += 3;
+      // isMovingDown = false
     }
     drawPlane()
   }
@@ -203,17 +234,12 @@ window.addEventListener('load', function() {
         // plane.x >= (likeRect.left -25) && plane.x <= (likeRect.right + 25) &&
         // plane.y >= (likeRect.top -20) && plane.y <= (likeRect.bottom + 20)
       ) {
-        console.log('1 ' + likeRect.left);
-        console.log('2 ' + likeRect.right);
-        console.log('3 ' + likeRect.top);
-        console.log('4 ' + likeRect.bottom);
         // 如果重叠，并且该元素尚未被隐藏，则隐藏它
         if (!hiddenLikes.includes(likeButton)) {
           hiddenLikes.push(likeButton);
           likeButton.style.display = 'none';
         }
       } else {
-        console.log('plane y is'+ likeRect.left)
         // 如果不重叠，并且该元素已经被隐藏，则显示它
         if (hiddenLikes.includes(likeButton)) {
           const index = hiddenLikes.indexOf(likeButton);
@@ -224,6 +250,7 @@ window.addEventListener('load', function() {
     });
   }
 
-  
+
+
 
 });
