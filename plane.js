@@ -71,49 +71,7 @@ window.addEventListener('load', function() {
 
   const hiddenLikes = [];
   let likeCountAll = 0;
-  // function checkForOverlap() {
-  //   // 获取页面上所有的like元素
-  //   const likeButtons = document.querySelectorAll('[data-testid="like"]');
 
-  //   // 遍历所有like元素
-  //   likeButtons.forEach(likeButton => {
-  //     const likeRect = likeButton.getBoundingClientRect();
-
-  //     // console.log("tweetElements ---------- 2")
-
-
-  //     if (
-  //       // plane.x >= likeRect.left -20 && plane.x <= likeRect.right +20 &&
-  //       // plane.y >= likeRect.top -2 && plane.y <= likeRect.bottom + 2
-
-  //       plane.x >= likeRect.left - 25  &&
-  //       plane.y >= likeRect.top -20
-
-  //     ) {
-  //       // 如果重叠,并且该元素尚未被隐藏,则隐藏它
-  //       if (!hiddenLikes.includes(likeButton)) {
-
-  //         console.log("tweetElements 2 likeRect.left "+ likeRect.left) 
-  //         console.log("tweetElements likeRect.top "+ likeRect.top) 
-  //         console.log("tweetElements likeRect.right "+ likeRect.right) 
-  //         console.log("tweetElements likeRect.bottom "+ likeRect.bottom) 
-
-  //         console.log("tweetElements plane.x "+ plane.x) 
-  //         console.log("tweetElements plane.y "+ plane.y) 
-
-  //         hiddenLikes.push(likeButton);
-  //         likeButton.style.display = 'none';
-  //       }
-  //     } else {
-  //       // 如果不重叠,并且该元素已经被隐藏,则显示它
-  //       if (hiddenLikes.includes(likeButton)) {
-  //         const index = hiddenLikes.indexOf(likeButton);
-  //         hiddenLikes.splice(index, 1);
-  //         likeButton.style.display = '';
-  //       }
-  //     }
-  //   });
-  // }
 
 function checkForOverlap() {
   // 获取页面上所有的like元素
@@ -183,12 +141,6 @@ function checkForOverlap() {
         setTimeout(() => {
           newLikeButton.remove();
         }, 1000);
-        // document.body.appendChild(newLikeButton);
-        // // 1秒后,新的红色按钮从原位置慢慢变大并消失
-        // setTimeout(() => {
-        //   newLikeButton.remove();
-        // }, 1000);
-        // //----
 
 
         // 显示提示信息 0.5 秒后自动关闭
@@ -209,44 +161,9 @@ function checkForOverlap() {
           toastMessage.style.display = 'none';
         }, 1000);
 
-        // //-----
-        // // 创建一个新的红色圆形按钮元素
-        // const newLikeButton = document.createElement('div');
-        // newLikeButton.className = 'new-like-button';
-        // newLikeButton.style.position = 'fixed';
-        // newLikeButton.style.left = `${likeX}px`;
-        // newLikeButton.style.top = `${likeY}px`;
-        // newLikeButton.style.width = `${likeWidth}px`;
-        // newLikeButton.style.height = `${likeHeight}px`;
-        // newLikeButton.style.backgroundColor = 'red';
-        // newLikeButton.style.borderRadius = '50%';
-        // newLikeButton.style.transition = 'all 1s ease-in-out';
-        // document.body.appendChild(newLikeButton);
-
-        // // 1秒后,新的红色按钮向右上角移动并变大
-        // setTimeout(() => {
-        //   newLikeButton.style.transform = 'translate(50%, -50%) scale(5)';
-        //   newLikeButton.style.opacity = '0';
-        // }, 1000);
-
-        // // 1.5秒后,移除新的红色按钮元素
-        // setTimeout(() => {
-        //   newLikeButton.remove();
-        // }, 1500);
-        // //---
-
-
-
       }
     } 
-    // else {
-    //   // 如果不重叠,并且该元素已经被隐藏,则显示它
-    //   if (hiddenLikes.includes(likeButton)) {
-    //     const index = hiddenLikes.indexOf(likeButton);
-    //     hiddenLikes.splice(index, 1);
-    //     likeButton.style.display = '';
-    //   }
-    // }
+
   });
 }
 
@@ -313,26 +230,6 @@ function checkForOverlap() {
   drawPlane();
   animate();
 });
-
-
-// function createToastMessage() {
-//   const toastMessage = document.createElement('div');
-//   toastMessage.id = 'toast-message';
-//   toastMessage.className = 'toast-message';
-//   toastMessage.style.position = 'fixed';
-//   toastMessage.style.bottom = '50px';
-//   toastMessage.style.left = '50%';
-//   toastMessage.style.transform = 'translateX(-50%)';
-//   toastMessage.style.backgroundColor = 'rgba(200, 255, 200, 0.9)'; // 淡绿色背景
-//   toastMessage.style.color = 'black'; // 黑色字体
-//   toastMessage.style.padding = '20px 30px'; // 更大的面积
-//   toastMessage.style.fontSize = '18px'; // 更大的字体
-//   toastMessage.style.borderRadius = '8px';
-//   toastMessage.style.zIndex = '9999';
-//   toastMessage.style.display = 'none';
-//   document.body.appendChild(toastMessage);
-//   return toastMessage;
-// }
 
 function createToastMessage(planeX, planeY, planeWidth, planeHeight) {
   const toastMessage = document.createElement('div');
@@ -410,5 +307,3 @@ function shuffleButtons() {
   });
 }
 
-// 在页面加载完成后调用该函数
-// window.addEventListener('DOMContentLoaded', shuffleButtons);
