@@ -8,7 +8,7 @@
       {
         "matches": ["*://*.twitter.com/*"],
         "js": ["plane.js"],
-        "css": ["plane.css"]
+        "css": ["plane.css","styles.css"]
       }
     ],
     "web_accessible_resources": [

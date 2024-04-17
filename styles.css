@@ -1,0 +1,20 @@
+@keyframes like-grow {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(5);
+      opacity: 0;
+    }
+  }
+  
+  .like-grow {
+    position: fixed;
+    border-radius: 50%;
+    /* background-color: red; */
+    fill: red;
+    transition: all 1s ease-in-out;
+    animation: like-grow 1s forwards;
+  }
+  
